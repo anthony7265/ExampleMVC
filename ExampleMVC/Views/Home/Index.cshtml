@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+    var CompanyInfo = (List<ExampleMVC.Models.spGetCompanyInformation_Result>)ViewBag.CompanyInfo_result;
+}
+
+<div class="jumbotron">
+    <h1>Company</h1>
+    <p><a href="#" class="btn btn-primary btn-lg" onclick="InsertUpdateCompany(0);">Add</a></p>
+</div>
+
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Company List</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Company Name</th>
+                        <th>Location</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < CompanyInfo.Count; i++)
+                    {
+                        <tr>
+                            <td>@CompanyInfo[i].companyID</td>
+                            <td>@CompanyInfo[i].companyName</td>
+                            <td>@CompanyInfo[i].companyAddress</td>
+                            <td>@CompanyInfo[i].companyEmail</td>
+                            <td>@CompanyInfo[i].companyPhone</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-md" onclick="InsertUpdateCompany(@CompanyInfo[i].companyID);">&nbsp;Edit Company</button>
+                                <button type="button" class="btn btn-danger btn-md" onclick="RemoveCompany();">&nbsp;Remove Company</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+
+@section modals{
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content" id="modal-default-content">
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            //GetBranchOffice();
+        });
+
+        function GetBranchOffice() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("BranchOffices", "Company")',
+                //data: { 'CID': CID },
+                success: function (data) {
+                    $('#branchOffices').html(data);
+                    $('.js-basic-example').DataTable();
+                }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    AlertNotification("error", "ERROR", errorThrown + " Status: " + XMLHttpRequest.status);
+                }
+            });
+        }
+
+        function InsertUpdateCompany(CID) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_InsertUpdateCompany", "Home")',
+                data: { 'CID': CID },
+                success: function (data) {
+                    $('#modal-default-content').html(data);
+                    $('#modal-default').modal('show');
+                    //attachEvents();
+                }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    AlertNotification("error", "ERROR", errorThrown + " Status: " + XMLHttpRequest.status);
+                }
+            });
+        }
+    </script>
+
+}

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="INVENTORYMNGDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="spCompanyInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="countryID" Type="int" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="companyAddress" Type="varchar(max)" Mode="In" />
+          <Parameter Name="companyContact" Type="varchar" Mode="In" />
+          <Parameter Name="companyEmail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="companyPhone" Type="varchar" Mode="In" />
+          <Parameter Name="companyFax" Type="varchar" Mode="In" />
+          <Parameter Name="companyAvatar" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="CreatedBy" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spCompanyUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="companyID" Type="int" Mode="In" />
+          <Parameter Name="countryID" Type="int" Mode="In" />
+          <Parameter Name="companyName" Type="varchar" Mode="In" />
+          <Parameter Name="companyAddress" Type="varchar(max)" Mode="In" />
+          <Parameter Name="companyContact" Type="varchar" Mode="In" />
+          <Parameter Name="companyEmail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="companyPhone" Type="varchar" Mode="In" />
+          <Parameter Name="companyFax" Type="varchar" Mode="In" />
+          <Parameter Name="companyAvatar" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="CreatedBy" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetCompanyInformation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="companyID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="INVENTORYMNGDBModelStoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="INVENTORYMNGDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="INVENTORYMNGDBEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="spCompanyInsert" ReturnType="Collection(Decimal)">
+            <Parameter Name="countryID" Mode="In" Type="Int32" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="companyAddress" Mode="In" Type="String" />
+            <Parameter Name="companyContact" Mode="In" Type="String" />
+            <Parameter Name="companyEmail" Mode="In" Type="String" />
+            <Parameter Name="companyPhone" Mode="In" Type="String" />
+            <Parameter Name="companyFax" Mode="In" Type="String" />
+            <Parameter Name="companyAvatar" Mode="In" Type="Binary" />
+            <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spCompanyUpdate" ReturnType="Collection(Int32)">
+            <Parameter Name="companyID" Mode="In" Type="Int32" />
+            <Parameter Name="countryID" Mode="In" Type="Int32" />
+            <Parameter Name="companyName" Mode="In" Type="String" />
+            <Parameter Name="companyAddress" Mode="In" Type="String" />
+            <Parameter Name="companyContact" Mode="In" Type="String" />
+            <Parameter Name="companyEmail" Mode="In" Type="String" />
+            <Parameter Name="companyPhone" Mode="In" Type="String" />
+            <Parameter Name="companyFax" Mode="In" Type="String" />
+            <Parameter Name="companyAvatar" Mode="In" Type="Binary" />
+            <Parameter Name="CreatedBy" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetCompanyInformation" ReturnType="Collection(INVENTORYMNGDBModel.spGetCompanyInformation_Result)">
+            <Parameter Name="companyID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spGetCompanyInformation_Result">
+          <Property Type="Int32" Name="companyID" Nullable="false" />
+          <Property Type="Int32" Name="countryID" Nullable="true" />
+          <Property Type="String" Name="countryName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="companyName" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="companyAddress" Nullable="true" />
+          <Property Type="String" Name="companyContact" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="companyEmail" Nullable="true" />
+          <Property Type="String" Name="companyPhone" Nullable="true" MaxLength="1024" />
+          <Property Type="String" Name="companyFax" Nullable="true" MaxLength="1024" />
+          <Property Type="Boolean" Name="companyActive" Nullable="true" />
+          <Property Type="Binary" Name="companyAvatar" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="INVENTORYMNGDBModelStoreContainer" CdmEntityContainer="INVENTORYMNGDBEntities" >
+          <FunctionImportMapping FunctionImportName="spCompanyInsert" FunctionName="INVENTORYMNGDBModel.Store.spCompanyInsert" />
+          <FunctionImportMapping FunctionImportName="spCompanyUpdate" FunctionName="INVENTORYMNGDBModel.Store.spCompanyUpdate" />
+          <FunctionImportMapping FunctionImportName="spGetCompanyInformation" FunctionName="INVENTORYMNGDBModel.Store.spGetCompanyInformation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="INVENTORYMNGDBModel.spGetCompanyInformation_Result">
+                <ScalarProperty Name="companyID" ColumnName="companyID" />
+                <ScalarProperty Name="countryID" ColumnName="countryID" />
+                <ScalarProperty Name="countryName" ColumnName="countryName" />
+                <ScalarProperty Name="companyName" ColumnName="companyName" />
+                <ScalarProperty Name="companyAddress" ColumnName="companyAddress" />
+                <ScalarProperty Name="companyContact" ColumnName="companyContact" />
+                <ScalarProperty Name="companyEmail" ColumnName="companyEmail" />
+                <ScalarProperty Name="companyPhone" ColumnName="companyPhone" />
+                <ScalarProperty Name="companyFax" ColumnName="companyFax" />
+                <ScalarProperty Name="companyActive" ColumnName="companyActive" />
+                <ScalarProperty Name="companyAvatar" ColumnName="companyAvatar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
